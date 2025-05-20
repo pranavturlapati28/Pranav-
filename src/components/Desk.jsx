@@ -2,11 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useGLTF, useCursor } from '@react-three/drei'
 import { useLoader, useFrame} from '@react-three/fiber'
 import * as THREE from 'three'
+import { Html } from '@react-three/drei'
 
 export default function Desk({ setOverlayVisible }) {
   const { scene, nodes } = useGLTF('/desk.glb')
   const needle1Ref = useRef()
   const needle2Ref = useRef()
+  const videoRef = useRef()
   const [hovered, setHovered] = useState(false)
   useCursor(hovered)
 
@@ -26,8 +28,9 @@ export default function Desk({ setOverlayVisible }) {
       targetAngle2.current = Math.random() * 2 * Math.PI
     }, 2000)
 
+
     return () => clearInterval(interval)
-  }, [])
+  }, [nodes])
 
   useFrame(() => {
     // Smoothly interpolate between current and target
@@ -42,7 +45,7 @@ export default function Desk({ setOverlayVisible }) {
     <group
       scale={1}
       position={[0, -1, 0]}
-      rotation={[0, Math.PI / 2, 0]}
+      rotation={[0, Math.PI *3/ 2, 0]}
     >
       {/* 🖥 Monitor */}
       <primitive
@@ -70,6 +73,47 @@ export default function Desk({ setOverlayVisible }) {
 
       {/* Render the rest of the scene normally */}
       <primitive object={scene} />
+      <Html
+  transform
+  position={[0.511684, 1.25526, .132756]} // Adjust to match your monitor screen
+  rotation={[0, Math.PI * 1.5, 0]} // Match your screen's orientation
+  distanceFactor={1.5} // Scale it relative to camera zoom
+>
+  <video
+    src="/video.mp4"
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      width: '70px',
+      borderRadius: '4px',
+      transform: 'translate(-50%, -50%)',
+    }}
+  />
+</Html>
+
+<Html
+  transform
+  position={[0.511684, 1.39526, .132756]} // Adjust to match your monitor screen
+  rotation={[0, Math.PI * 1.5, 0]} // Match your screen's orientation
+  distanceFactor={1.5} // Scale it relative to camera zoom
+>
+  <video
+    src="/basket.mp4"
+    autoPlay
+    muted
+    loop
+    playsInline
+    style={{
+      width: '50px',
+      borderRadius: '4px',
+      transform: 'translate(-50%, -50%)',
+    }}
+  />
+</Html>
+
+
 
       {/* 🔁 Needle animation */}
       <primitive ref={needle1Ref} object={nodes.Cube136} />
