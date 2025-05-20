@@ -1,20 +1,42 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useGLTF, useCursor } from '@react-three/drei'
-import { useLoader } from '@react-three/fiber'
+import { useLoader, useFrame} from '@react-three/fiber'
 import * as THREE from 'three'
 
 export default function Desk({ setOverlayVisible }) {
   const { scene, nodes } = useGLTF('/desk.glb')
+  const needle1Ref = useRef()
+  const needle2Ref = useRef()
   const [hovered, setHovered] = useState(false)
   useCursor(hovered)
 
   const texture = useLoader(THREE.TextureLoader, '/BakedImage.png')
 
-  useEffect(() => {
+  const angle1 = useRef(0)
+  const targetAngle1 = useRef(0)
 
+  const angle2 = useRef(0)
+  const targetAngle2 = useRef(0)
+
+  useEffect(() => {
     console.log('Loaded GLTF nodes:', nodes)
 
-  }, [nodes, scene, texture])
+    const interval = setInterval(() => {
+      targetAngle1.current = Math.random() * 2 * Math.PI
+      targetAngle2.current = Math.random() * 2 * Math.PI
+    }, 2000)
+
+    return () => clearInterval(interval)
+  }, [])
+
+  useFrame(() => {
+    // Smoothly interpolate between current and target
+    angle1.current = THREE.MathUtils.lerp(angle1.current, targetAngle1.current, 0.05)
+    angle2.current = THREE.MathUtils.lerp(angle2.current, targetAngle2.current, 0.05)
+
+    if (needle1Ref.current) needle1Ref.current.rotation.x = angle1.current
+    if (needle2Ref.current) needle2Ref.current.rotation.x = angle2.current
+  })
 
   return (
     <group
@@ -47,6 +69,12 @@ export default function Desk({ setOverlayVisible }) {
       />
 
       {/* Render the rest of the scene normally */}
+      <primitive object={scene} />
+
+      {/* 🔁 Needle animation */}
+      <primitive ref={needle1Ref} object={nodes.Cube136} />
+      <primitive ref={needle2Ref} object={nodes.Cube137} />
+
       <primitive object={scene} />
     </group>
   )
