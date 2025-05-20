@@ -13,7 +13,6 @@ export default function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <Canvas camera={{ position: [0, 1.5, 5], fov: 45 }}>
-  <ambientLight />
   <directionalLight position={[0, 5, 5]} />
   
   {/* Enable orbit controls */}

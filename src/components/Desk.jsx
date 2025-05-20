@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useGLTF, useCursor } from '@react-three/drei'
+import { useLoader } from '@react-three/fiber'
+import * as THREE from 'three'
 
 export default function Desk({ setOverlayVisible }) {
   const { scene, nodes } = useGLTF('/desk.glb')
   const [hovered, setHovered] = useState(false)
   useCursor(hovered)
 
+  const texture = useLoader(THREE.TextureLoader, '/BakedImage.png')
+
   useEffect(() => {
+
     console.log('Loaded GLTF nodes:', nodes)
-  }, [nodes])
+
+  }, [nodes, scene, texture])
 
   return (
     <group
