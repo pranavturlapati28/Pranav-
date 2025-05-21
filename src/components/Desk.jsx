@@ -20,6 +20,11 @@ export default function Desk({ setOverlayVisible }) {
   const baseScale = 0.1
 
   const texture = useLoader(THREE.TextureLoader, '/BakedImage.png')
+  const texture1 = useLoader(THREE.TextureLoader, '/BakedBricks.png', (loader) => {
+    loader.manager.onError = (url) => {
+      console.error(`❌ Failed to load texture from ${url}`);
+    };
+  });
 
   const angle1 = useRef(0)
   const targetAngle1 = useRef(0)
@@ -29,6 +34,20 @@ export default function Desk({ setOverlayVisible }) {
 
   useEffect(() => {
     console.log('Loaded GLTF nodes:', nodes)
+    console.log('Brick Texture loaded:', texture1);
+    if (!texture1) return;
+
+  Object.entries(nodes).forEach(([name, node]) => {
+    if (node.isMesh && name.startsWith('Plane')) {
+      console.log(`✅ Applying texture to: ${name}`);
+      node.material = new THREE.MeshBasicMaterial({
+        map: texture1,
+        side: THREE.DoubleSide // helps if you don’t see anything
+      });
+      node.material.map.encoding = THREE.sRGBEncoding;
+      node.material.map.needsUpdate = true;
+    }
+  });
 
     const interval = setInterval(() => {
       targetAngle1.current = Math.random() * 2 * Math.PI
@@ -36,7 +55,7 @@ export default function Desk({ setOverlayVisible }) {
     }, 2000)
 
     return () => clearInterval(interval)
-  }, [nodes])
+  }, [nodes, texture1])
 
   useFrame(() => {
     angle1.current = THREE.MathUtils.lerp(angle1.current, targetAngle1.current, 0.05)
@@ -87,9 +106,6 @@ export default function Desk({ setOverlayVisible }) {
         onPointerOver={() => setHoveredText002(true)}
         onPointerOut={() => setHoveredText002(false)}
       />
-
-      {/* Render scene */}
-      <primitive object={scene} />
 
       {/* 💻 Video overlays */}
       <Html
