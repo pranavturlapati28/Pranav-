@@ -17,7 +17,7 @@ export default function Desk({ setOverlayVisible }) {
   const [hoveredText003, setHoveredText003] = useState(false)
   const [hoveredText004, setHoveredText004] = useState(false)
 
-  const baseScale = 0.1
+  const baseScale = 0.2
 
   const texture = useLoader(THREE.TextureLoader, '/BakedImage.png')
   const texture1 = useLoader(THREE.TextureLoader, '/BakedBricks.png', (loader) => {
@@ -34,26 +34,13 @@ export default function Desk({ setOverlayVisible }) {
 
   useEffect(() => {
     console.log('Loaded GLTF nodes:', nodes)
-    console.log('Brick Texture loaded:', texture1);
-    if (!texture1) return;
-
-  Object.entries(nodes).forEach(([name, node]) => {
-    if (node.isMesh && name.startsWith('Plane')) {
-      console.log(`✅ Applying texture to: ${name}`);
-      node.material = new THREE.MeshBasicMaterial({
-        map: texture1,
-        side: THREE.DoubleSide // helps if you don’t see anything
-      });
-      node.material.map.encoding = THREE.sRGBEncoding;
-      node.material.map.needsUpdate = true;
-    }
-  });
-
+    console.log('Brick Texture loaded:', texture1)
+  
     const interval = setInterval(() => {
       targetAngle1.current = Math.random() * 2 * Math.PI
       targetAngle2.current = Math.random() * 2 * Math.PI
     }, 2000)
-
+  
     return () => clearInterval(interval)
   }, [nodes, texture1])
 
@@ -74,7 +61,7 @@ export default function Desk({ setOverlayVisible }) {
       {/* 🖥 Monitor */}
       <primitive
         object={nodes.Text003}
-        scale={hoveredText003 ? baseScale * 1.1 : baseScale}
+        scale={hoveredText003 ? baseScale * 1.2 : baseScale}
         onClick={() => window.open('https://linkedin.com/in/YOUR_USERNAME', '_blank')}
         onPointerOver={() => setHoveredText003(true)}
         onPointerOut={() => setHoveredText003(false)}
@@ -82,7 +69,7 @@ export default function Desk({ setOverlayVisible }) {
 
       {/* 🎨 Canvas */}
       <primitive
-        object={nodes.Cube144}
+        object={nodes.Text004}
         scale={hoveredText004 ? baseScale * 1.1 : baseScale}
         onClick={() => setOverlayVisible(true)}
         onPointerOver={() => setHoveredText004(true)}
