@@ -3,5 +3,12 @@
  */
 
 export default {
-    base: process.env.NODE_ENV === 'production' ? '/Pranav-/' : '/'
+  base: process.env.NODE_ENV === 'production' ? '/Pranav-/' : '/',
+  server: {
+    watch: {
+      usePolling: true
+    }
   }
+}
+
+  
