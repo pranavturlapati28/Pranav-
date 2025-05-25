@@ -1,14 +1,7 @@
-/**
- * @type {import('vite')}
- */
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-export default {
-  base: process.env.NODE_ENV === 'production' ? '/Pranav-/' : '/',
-  server: {
-    watch: {
-      usePolling: true
-    }
-  }
-}
-
-  
+export default defineConfig({
+  plugins: [react()],
+  base: '/Pranav-/', // Replace with your repository name
+});
