@@ -4,7 +4,7 @@ import { useLoader, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Html } from '@react-three/drei'
 
-export default function Desk({ setOverlayVisible }) {
+export default function Desk({ setOverlayVisible, overlayVisible }) {
   const { scene, nodes } = useGLTF(import.meta.env.BASE_URL + 'desk.glb')
   const needle1Ref = useRef()
   const needle2Ref = useRef()
@@ -89,6 +89,7 @@ export default function Desk({ setOverlayVisible }) {
       />
 
       {/* 💻 Video overlays */}
+      {!overlayVisible && (
       <Html
         transform
         position={[0.511684, 1.25526, .132756]}
@@ -108,7 +109,8 @@ export default function Desk({ setOverlayVisible }) {
           }}
         />
       </Html>
-
+      )}
+      {!overlayVisible && (
       <Html
         transform
         position={[0.511684, 1.39526, .132756]}
@@ -128,6 +130,8 @@ export default function Desk({ setOverlayVisible }) {
           }}
         />
       </Html>
+      )}
+
 
       {/* 🔁 Needle animation */}
       <primitive ref={needle1Ref} object={nodes.Cube136} />
