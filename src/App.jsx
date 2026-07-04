@@ -6,7 +6,7 @@ import Desk from './components/Desk'
 import Overlay from './components/Overlay'
 import './App.css';
 
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Loader } from '@react-three/drei'
 export default function App() {
   const [overlayVisible, setOverlayVisible] = useState(false)
   const [aboutVisible, setAboutVisible] = useState(false);
@@ -35,11 +35,14 @@ export default function App() {
    />
 
   {/* Your 3D desk */}
-  <Desk
-  setOverlayVisible={setOverlayVisible}
-  overlayVisible={overlayVisible || aboutVisible} // 👈 combine both
-/>
+  <Suspense fallback={null}>
+    <Desk
+    setOverlayVisible={setOverlayVisible}
+    overlayVisible={overlayVisible || aboutVisible} // 👈 combine both
+  />
+  </Suspense>
 </Canvas>
+      <Loader />
 
       <Overlay visible={overlayVisible} onClose={() => setOverlayVisible(false)} />
       <Overlay visible={aboutVisible} onClose={() => setAboutVisible(false)} />

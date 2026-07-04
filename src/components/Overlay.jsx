@@ -6,21 +6,21 @@ export default function Overlay({ visible, onClose }) {
   const projects = [
     {
       title: "AI Sports Commentary",
-      image: import.meta.env.BASE_URL + "/images/basketball.png",
+      image: import.meta.env.BASE_URL + "images/basketball.png",
       description:
         "Built a real-time AI sports commentary tool using OpenAI’s Whisper, Three.js, Blender, and Matplotlib.\nDesigned 3D visual overlays for tactical analysis, with potential deployment for UNC Basketball coaching staff.",
       skills: ["AI", "3D Visualization", "Sports Tech"]
     },
     {
       title: "UNC Website Chatbot Integration",
-      image: import.meta.env.BASE_URL + "/images/uncchatbot.png",
+      image: import.meta.env.BASE_URL + "images/uncchatbot.png",
       description:
         "Created a documented RESTful API using FastAPI and OpenAPI, serving 12,000+ requests in 3 months.\nIntegrated frontend (Angular) and backend (Python), and led CI/CD deployment using GitHub Actions and Kubernetes.",
       skills: ["API Development", "CI/CD", "Full-Stack"]
     },
     {
       title: "SystemVerilog and Assembly Game Design",
-      image: import.meta.env.BASE_URL + "/images/Shell.png",
+      image: import.meta.env.BASE_URL + "images/Shell.png",
       description:
         "Designed and implemented a custom CPU using SystemVerilog, building the architecture from logic gates upward.\nDeveloped a simple game using custom assembly language and deployed it on an FPGA.",
       skills: ["FPGA", "SystemVerilog", "Computer Architecture"]
