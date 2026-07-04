@@ -63,8 +63,27 @@
     border-color: #ffffffaa;
   }
 
-  .back-btn {
+  .stage {
     position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Locks the 3D view to one fixed aspect ratio, letterboxed on mismatched
+     screens, so the notebook renders at the same relative position/size on
+     every device instead of shifting with the window's aspect ratio. */
+  .stage-frame {
+    position: relative;
+    width: min(100vw, calc(100vh * 16 / 9));
+    height: min(100vh, calc(100vw * 9 / 16));
+    container-type: size;
+  }
+
+  .back-btn {
+    position: absolute;
     top: 66px;
     left: 1.5rem;
     z-index: 2000;
