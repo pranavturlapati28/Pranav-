@@ -7,6 +7,7 @@ import Overlay from './components/Overlay'
 import './App.css';
 
 import { OrbitControls, Loader } from '@react-three/drei'
+import { Analytics } from '@vercel/analytics/react'
 export default function App() {
   const [overlayVisible, setOverlayVisible] = useState(false)
   const [aboutVisible, setAboutVisible] = useState(false);
@@ -46,6 +47,7 @@ export default function App() {
 
       <Overlay visible={overlayVisible} onClose={() => setOverlayVisible(false)} />
       <Overlay visible={aboutVisible} onClose={() => setAboutVisible(false)} />
+      <Analytics />
     </div>
   )
 }
