@@ -44,4 +44,26 @@
     color: #ffffff;
     border-color: #ffffffaa;
   }
-  
+
+  .back-btn {
+    position: fixed;
+    top: 66px;
+    left: 1.5rem;
+    z-index: 2000;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    border: 1px solid #ffffff88;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    color: #ffffffcc;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .back-btn:hover {
+    background: #ffffff22;
+    color: #ffffff;
+    border-color: #ffffffaa;
+  }

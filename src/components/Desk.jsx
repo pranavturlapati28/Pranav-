@@ -4,7 +4,7 @@ import { useLoader, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Html } from '@react-three/drei'
 
-export default function Desk({ setOverlayVisible, overlayVisible }) {
+export default function Desk({ onNotebookClick, zoomed }) {
   const { scene, nodes } = useGLTF(import.meta.env.BASE_URL + 'desk.glb')
   const needle1Ref = useRef()
   const needle2Ref = useRef()
@@ -22,19 +22,19 @@ export default function Desk({ setOverlayVisible, overlayVisible }) {
 
   const angle1 = useRef(0)
   const targetAngle1 = useRef(0)
- 
+
   const angle2 = useRef(0)
   const targetAngle2 = useRef(0)
 
   useEffect(() => {
     console.log('Loaded GLTF nodes:', nodes)
-  
-  
+
+
     const interval = setInterval(() => {
       targetAngle1.current = Math.random() * 2 * Math.PI
       targetAngle2.current = Math.random() * 2 * Math.PI
     }, 2000)
-  
+
     return () => clearInterval(interval)
   }, [nodes])
 
@@ -65,7 +65,7 @@ export default function Desk({ setOverlayVisible, overlayVisible }) {
       <primitive
         object={nodes.Text004}
         scale={hoveredText004 ? baseScale * 1.1 : baseScale}
-        onClick={() => setOverlayVisible(true)}
+        onClick={() => onNotebookClick()}
         onPointerOver={() => setHoveredText004(true)}
         onPointerOut={() => setHoveredText004(false)}
       />
@@ -89,7 +89,7 @@ export default function Desk({ setOverlayVisible, overlayVisible }) {
       />
 
       {/* 💻 Video overlays */}
-      {!overlayVisible && (
+      {!zoomed && (
       <Html
         transform
         position={[0.511684, 1.25526, .132756]}
@@ -110,7 +110,7 @@ export default function Desk({ setOverlayVisible, overlayVisible }) {
         />
       </Html>
       )}
-      {!overlayVisible && (
+      {!zoomed && (
       <Html
         transform
         position={[0.511684, 1.39526, .132756]}
@@ -137,7 +137,15 @@ export default function Desk({ setOverlayVisible, overlayVisible }) {
       <primitive ref={needle1Ref} object={nodes.Cube136} />
       <primitive ref={needle2Ref} object={nodes.Cube137} />
 
-      <primitive object={scene} />
+      <primitive
+        object={scene}
+        onClick={(e) => {
+          e.stopPropagation()
+          console.log(
+            `Clicked "${e.object.name}" at world point: [${e.point.x.toFixed(3)}, ${e.point.y.toFixed(3)}, ${e.point.z.toFixed(3)}]`
+          )
+        }}
+      />
     </group>
   )
 }
