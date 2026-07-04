@@ -26,7 +26,25 @@
     font-weight: 600;
     color: white;
   }
-  
+
+  .top-bar-right {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .top-bar-icon-link {
+    color: #ffffffcc;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+  }
+
+  .top-bar-icon-link:hover {
+    color: #ffffff;
+  }
+
   .about-btn {
     background: transparent;
     border: 1px solid #ffffff88;

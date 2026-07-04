@@ -3,6 +3,7 @@ import React from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Suspense, useState, useRef, useEffect } from 'react'
 import * as THREE from 'three'
+import { FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa'
 import Desk from './components/Desk'
 import NotebookOverlay from './components/NotebookOverlay'
 import './App.css';
@@ -100,9 +101,36 @@ export default function App() {
       <div className="top-bar">
         <div className="top-bar-inner">
           <span className="logo">Pranav Turlapati</span>
-          <button className="about-btn" onClick={() => setZoomed(true)}>
-            About Me
-          </button>
+          <div className="top-bar-right">
+            <a
+              href="https://www.linkedin.com/in/pranavturlapati/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="top-bar-icon-link"
+              aria-label="LinkedIn"
+            >
+              <FaLinkedin />
+            </a>
+            <a
+              href="https://github.com/pranavturlapati28"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="top-bar-icon-link"
+              aria-label="GitHub"
+            >
+              <FaGithub />
+            </a>
+            <a
+              href="mailto:pranavturlapati02@gmail.com"
+              className="top-bar-icon-link"
+              aria-label="Email"
+            >
+              <FaEnvelope />
+            </a>
+            <button className="about-btn" onClick={() => setZoomed(true)}>
+              About Me
+            </button>
+          </div>
         </div>
       </div>
       <Canvas camera={{ position: [0, 1.5, 5], fov: 45 }}>
